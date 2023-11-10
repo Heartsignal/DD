@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function register(username, password,email,mobile) {
   return request({
-    url: '/user/register',
+    url: 'backend/first_page',
     method: 'post',
     data: {
       username,
