@@ -33,6 +33,6 @@ export function validatAlphabets(str) {
 
 /*合法email*/
 export function isValidateEmail(str) {
-  const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
-  return reg.test(reg)
+  const emailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
+  return emailReg.test(str)
 }
