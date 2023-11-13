@@ -29,7 +29,7 @@
           <el-button :loading="loading" type="primary" @click.native.prevent="handleLogin" class="flex-button">
             登 录
           </el-button>
-          <el-button :loading="loading" type="primary" @click.native.prevent="handleRegister" class="flex-button">
+          <el-button  type="primary" @click.native.prevent="handleRegister" class="flex-button">
             注 册
           </el-button>
         </div>
@@ -43,92 +43,93 @@
 </template>
 
 <script>
-    import {isvalidUsername} from '@/utils/validate'
-    import login from '@/api/edu/login'
-    import teacher from '@/api/edu/teacher'
+  import { isvalidUsername } from '@/utils/validate'
+  import login from '@/api/edu/login'
+  import teacher from '@/api/edu/teacher'
 
-    export default {
-        name: 'Login',
-        data() {
-            const validateUsername = (rule, value, callback) => {
-                if (!isvalidUsername(value)) {
-                    callback(new Error('请输入正确的用户名'))
-                } else {
-                    callback()
-                }
-            }
-            const validatePass = (rule, value, callback) => {
-                if (value.length < 5) {
-                    callback(new Error('密码不能小于5位'))
-                } else {
-                    callback()
-                }
-            }
-            return {
-                loginForm: {
-                    username: 'admin',
-                    password: 'admin'
-                },
-                loginRules: {
-                    username: [{required: true, trigger: 'blur', validator: validateUsername}],
-                    password: [{required: true, trigger: 'blur', validator: validatePass}]
-                },
-                loading: false,
-                pwdType: 'password',
-                redirect: undefined
-            }
+  export default {
+    name: 'Login',
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!isvalidUsername(value)) {
+          callback(new Error('请输入正确的用户名'))
+        } else {
+          callback()
+        }
+      }
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 5) {
+          callback(new Error('密码不能小于5位'))
+        } else {
+          callback()
+        }
+      }
+      return {
+        loginForm: {
+          username: 'admin',
+          password: 'admin'
         },
-        watch: {
-            $route: {
-                handler: function (route) {
-                    this.redirect = route.query && route.query.redirect
-                },
-                immediate: true
-            }
+        loginRules: {
+          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+          password: [{ required: true, trigger: 'blur', validator: validatePass }]
         },
-        methods: {
-            showPwd() {
-                if (this.pwdType === 'password') {
-                    this.pwdType = ''
-                } else {
-                    this.pwdType = 'password'
-                }
-            },
-            handleLogin() {
-                this.$refs.loginForm.validate(valid => {
-                    if (valid) {
-                        this.loading = true
-                        // console.log(this.redirect)
-                        // this.$router.push({path: this.redirect || '/'})
-                        // console.log("跳转")
-                        /**
-                         this.$store.dispatch('Login', this.loginForm).then(() => {
+        loading: false,
+        pwdType: 'password',
+        redirect: undefined
+      }
+    },
+    watch: {
+      $route: {
+        handler: function(route) {
+          this.redirect = route.query && route.query.redirect
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
+        }
+      },
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            this.loading = true
+            // console.log(this.redirect)
+            // this.$router.push({path: this.redirect || '/'})
+            // console.log("跳转")
+            /**
+             this.$store.dispatch('Login', this.loginForm).then(() => {
                             console.log(this.redirect)
                             this.loading = false
                             this.$router.push({path: this.redirect || '/'})
                         }).catch(() => {
                             this.loading = false
                         })
-                         **/
-                        login.login(this.loginForm.username,this.loginForm.password).then(res => {
-                            this.loading = false;
-                            console.log(res)
-                            // this.$router.push({path: this.redirect || '/'})
-                        }).catch(err=>{
-                            console.log(err)
-                            this.loading = false;
-                        })
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
-            },
-            handleRegister() {
-                this.$router.push({path: this.redirect || '/register'})
-            }
-        }
+             **/
+            login.login(this.loginForm.username, this.loginForm.password).then(res => {
+              this.loading = false
+              console.log(res)
+              console.log(this.redirect)
+              this.$router.push({ path: this.redirect || '/dashboard' })
+            }).catch(err => {
+              console.log(err)
+              this.loading = false
+            })
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
+      },
+      handleRegister() {
+        this.$router.push({ path: this.redirect || '/register' })
+      }
     }
+  }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

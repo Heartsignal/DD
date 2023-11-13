@@ -41,6 +41,10 @@
           <el-button :loading="loading" type="primary" @click.native.prevent="handleRegister" class="flex-button">
             注 册
           </el-button>
+          <el-button type="primary" @click.native.prevent="handleLogin" class="flex-button">
+            返回登录
+          </el-button>
+
         </div>
       </el-form-item>
       <!--      <div class="tips">-->
@@ -52,88 +56,108 @@
 </template>
 
 <script>
-    import {isvalidUsername} from '@/utils/validate'
-    import {register} from '@/api/register'
+  import { isValidateEmail } from '@/utils/validate'
+  import { register } from '@/api/register'
 
-    export default {
-        name: 'Refister',
-        data() {
-            const validateUsername = (rule, value, callback) => {
-                if (!isvalidUsername(value)) {
-                    callback(new Error('请输入正确的用户名'))
-                } else {
-                    callback()
-                }
-            }
-            const validatePass = (rule, value, callback) => {
-                if (value.length < 5) {
-                    callback(new Error('密码不能小于5位'))
-                } else {
-                    callback()
-                }
-            }
-            return {
-                loginForm: {
-                    username: '',
-                    password: '',
-                    email: '',
-                    mobile: ''
-                },
-                loginRules: {
-                    username: [{required: true, trigger: 'blur', validator: validateUsername}],
-                    password: [{required: true, trigger: 'blur', validator: validatePass}]
-                },
-                loading: false,
-                pwdType: 'password',
-                redirect: undefined
-            }
-        },
-        watch: {
-            $route: {
-                handler: function (route) {
-                    this.redirect = route.query && route.query.redirect
-                },
-                immediate: true
-            }
-        },
-        methods: {
-            showPwd() {
-                if (this.pwdType === 'password') {
-                    this.pwdType = ''
-                } else {
-                    this.pwdType = 'password'
-                }
-            },
-            handleRegister() {
-                register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then((resolve, reject) => {
-                    console.log(res);
-                }).catch((e)=>{
-                    console.log(e)
-                })
-                // this.$refs.loginForm.validate(valid => {
-                //     if (valid) {
-                //         // this.loading = true
-                //         // this.loading = false
-                //         // this.$router.push({path: this.redirect || '/'})
-                //         // this.$store.dispatch('Login', this.loginForm).then(() => {
-                //         //   this.loading = false
-                //         //   this.$router.push({ path: this.redirect || '/' })
-                //         // }).catch(() => {
-                //         //   this.loading = false
-                //         // })
-                //         register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then(res => {
-                //             console.log(res);
-                //         })
-                //
-                //
-                //     } else {
-                //         console.log('error submit!!')
-                //         return false
-                //     }
-                // })
-            }
+  export default {
+    name: 'Refister',
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (value.length < 2) {
+          callback(new Error('用户名长度大于2位'))
+        } else {
+          callback()
         }
+      }
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 5) {
+          callback(new Error('密码不能小于5位'))
+        } else {
+          callback()
+        }
+      }
+      const validateEmail = (rule, value, callback) => {
+        if (!isValidateEmail(value)) {
+          callback(new Error('邮箱格式不正确'))
+        } else {
+          callback()
+        }
+      }
+      const validateMobile = (rule, value, callback) => {
+        if (value.length != 11) {
+          callback(new Error('请输入正确的手机号'))
+        } else {
+          callback()
+        }
+      }
+
+      return {
+        loginForm: {
+          username: '',
+          password: '',
+          email: '',
+          mobile: ''
+        },
+        loginRules: {
+          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+          password: [{ required: true, trigger: 'blur', validator: validatePass }],
+          mobile: [{ required: true, trigger: 'blur', validator: validateMobile }],
+          email: [{ required: true, trigger: 'blur', validator: validateEmail }]
+        },
+        loading: false,
+        pwdType: 'password',
+        redirect: undefined
+      }
+    },
+    watch: {
+      $route: {
+        handler: function(route) {
+          this.redirect = route.query && route.query.redirect
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
+        }
+      },
+      handleRegister() {
+        register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then((resolve, reject) => {
+          console.log(res)
+        }).catch((e) => {
+          console.log(e)
+        })
+        // this.$refs.loginForm.validate(valid => {
+        //     if (valid) {
+        //         // this.loading = true
+        //         // this.loading = false
+        //         // this.$router.push({path: this.redirect || '/'})
+        //         // this.$store.dispatch('Login', this.loginForm).then(() => {
+        //         //   this.loading = false
+        //         //   this.$router.push({ path: this.redirect || '/' })
+        //         // }).catch(() => {
+        //         //   this.loading = false
+        //         // })
+        //         register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then(res => {
+        //             console.log(res);
+        //         })
+        //
+        //
+        //     } else {
+        //         console.log('error submit!!')
+        //         return false
+        //     }
+        // })
+      },
+      handleLogin() {
+        this.$router.push({ path: this.redirect || '/login' })
+      }
     }
+  }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
@@ -190,7 +214,7 @@
       width: 520px;
       max-width: 100%;
       padding: 35px 35px 15px 35px;
-      margin: 120px auto;
+      margin: 20px auto;
     }
 
     .tips {
