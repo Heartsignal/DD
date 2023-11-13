@@ -113,7 +113,6 @@
             login.login(this.loginForm.username, this.loginForm.password).then(res => {
               this.loading = false
               console.log(res)
-              console.log(this.redirect)
               this.$router.push({ path: this.redirect || '/dashboard' })
             }).catch(err => {
               console.log(err)

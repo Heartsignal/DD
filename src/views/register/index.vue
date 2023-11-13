@@ -126,11 +126,20 @@
         }
       },
       handleRegister() {
-        register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then((resolve, reject) => {
-          console.log(res)
-        }).catch((e) => {
-          console.log(e)
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then(res => {
+              console.log(res)
+            }).catch((e) => {
+              console.log("失败了")
+              console.log(e)
+            })
+          } else {
+            console.log('error submit!!')
+            return false
+          }
         })
+
         // this.$refs.loginForm.validate(valid => {
         //     if (valid) {
         //         // this.loading = true
