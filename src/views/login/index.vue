@@ -112,11 +112,15 @@
              **/
             login.login(this.loginForm.username, this.loginForm.password).then(res => {
               this.loading = false
-              console.log(res)
+              this.$message({
+                message: '登录成功，开始快乐的学习吧~',
+                type: 'success'
+              });
               this.$router.push({ path: this.redirect || '/dashboard' })
             }).catch(err => {
               console.log(err)
               this.loading = false
+              this.$message.error('错了哦，再核实一下用户名和密码！');
             })
           } else {
             console.log('error submit!!')
