@@ -130,8 +130,18 @@
           if (valid) {
             register(this.loginForm.username, this.loginForm.password, this.loginForm.email, this.loginForm.mobile).then(res => {
               console.log(res)
+              this.$message({
+                message: '恭喜你，注册成功！返回登陆页面登录吧！',
+                type: 'success'
+              });
+              this.$data.formData = {
+                username: '',
+                password: '',
+                email: '',
+                mobile: ''
+              }
             }).catch((e) => {
-              console.log("失败了")
+              console.log('失败了')
               console.log(e)
             })
           } else {
