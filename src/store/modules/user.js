@@ -1,4 +1,5 @@
-import { login, logout, getInfo } from '@/api/login'
+import {  logout, getInfo } from '@/api/login'
+import login from '@/api/edu/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -6,7 +7,10 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [],
+    id: -1,
+    haveCourseIds: [],
+    role: ''
   },
 
   mutations: {
@@ -21,20 +25,46 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_ID: (state, id) => {
+      state.id = id
+    },
+    SET_HAVECOURSEIDS: (state, haveCourseIds) => {
+      state.haveCourseIds = haveCourseIds
+    },
+    SET_ROLE: (state, role) => {
+      state.role = role
     }
   },
 
   actions: {
     // 登录
+    // Login({ commit }, userInfo) {
+    //   const username = userInfo.username.trim()
+    //   return new Promise((resolve, reject) => {
+    //     login(username, userInfo.password).then(response => {
+    //       const data = response.data
+    //       setToken(data.token)
+    //       commit('SET_TOKEN', data.token)
+    //       resolve()
+    //     }).catch(error => {
+    //       reject(error)
+    //     })
+    //   })
+    // },
+
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+      console.log("哈哈哈哈哈哈")
+      const username = userInfo.username
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login.login(username, userInfo.password).then(response => {
+          console.log("哈哈哈哈哈哈")
           const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
+          commit('SET_ID', data.id)
+          commit('SET_HAVECOURSEIDS',data.results)
           resolve()
         }).catch(error => {
+          console.log("xixiixixixxi")
           reject(error)
         })
       })
