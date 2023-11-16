@@ -51,7 +51,7 @@
     name: 'Login',
     data() {
       const validateUsername = (rule, value, callback) => {
-        if (!isvalidUsername(value)) {
+        if (value.length<2) {
           callback(new Error('请输入正确的用户名'))
         } else {
           callback()
