@@ -8,6 +8,8 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
 
+// 导入 Vue 和 v-md-editor 插件
+
 import App from './App'
 import router from './router'
 import store from './store'
@@ -19,9 +21,15 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
+
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
 })
+

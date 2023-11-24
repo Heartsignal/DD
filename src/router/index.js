@@ -38,6 +38,8 @@ export const constantRouterMap = [
     }]
   },
 
+
+
   {
     path: '/teacher',
     component: Layout,
@@ -243,6 +245,28 @@ export const constantRouterMap = [
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
         meta: { title: 'menu2' }
+      }
+    ]
+  },
+
+  {
+    name: '我的',
+    path: '/mine',
+    component: Layout,
+    redirect: '/mine/mineInfo',
+    meta: { title: '我的', icon: 'nested' },
+    children: [
+      {
+        path: 'editorNotesShare',
+        name: '发布笔记',
+        component: () => import('@/views/minePage/editorNotesShare'),
+        meta: { title: '发布笔记', icon: 'table' }
+      },
+      {
+        path: 'mineInfo',
+        name: '我的信息',
+        component: () => import('@/views/minePage/mineInfo'),
+        meta: { title: '我的信息', icon: 'table' }
       }
     ]
   },
