@@ -11,6 +11,15 @@ export default {
         userId
       }
     })
+  },
+  showArticles(page){
+    return request({
+      url:'/backend/show_articles',
+      method: 'post',
+      data: {
+        page:page
+      }
+    })
   }
 
 }

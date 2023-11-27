@@ -40,31 +40,53 @@
         </div>
         <!-- 其他 slides -->
       </div>
+<!--      &lt;!&ndash; Add Pagination &ndash;&gt;-->
+<!--      <div class="swiper-pagination"></div>-->
+<!--      &lt;!&ndash; Add Navigation &ndash;&gt;-->
+<!--      <div class="swiper-button-next"></div>-->
+<!--      <div class="swiper-button-prev"></div>-->
+
     </div>
 
 
     <!-- 100% 宽度的列表 -->
     <div>
       <el-card
-        v-for="index in 10"
+        v-for="(item,index) in shareData"
         :key="index"
         style="width: 100%; height: 60px; margin-bottom: 10px;"
+        @click="handleCardClick(item)"
       >
         <!-- 上半部分，占 40% -->
-        <div style="height: 40%; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-          <!-- 标题 -->
-          Title {{ index }}
-        </div>
+        <el-row style="height: 40%; margin-top: -10px;margin-bottom: 5px">
+          <el-col :sapn="20"
+                  style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500;color: #222226;">
+            <!-- 标题 -->
+            {{ item.title }}
+          </el-col>
+        </el-row>
 
         <!-- 下半部分，占 60% -->
         <div
-          style="height: 60%; font-size: 14px; color:#999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+          style="height: 60%; font-size: 12px; color:#999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
           <!-- 文章内容 -->
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut lorem ac tellus iaculis accumsan vel nec
-          massa.
+          {{item.content}}
+        </div>
+
+        <div style="position: absolute; top: 5px; right: 5px; font-size: 12px; color: #999;">
+          {{ item.create_time }}
         </div>
 
       </el-card>
+      <el-pagination
+        background
+        small
+        layout="prev, pager, next"
+        :total="articleNum"
+        :current-page.sync="currentPage"
+        @current-change="currentPageChange"
+      >
+      </el-pagination>
     </div>
 
   </div>
@@ -74,7 +96,9 @@
   import { mapGetters } from 'vuex'
   import 'swiper/swiper-bundle.css' // 或者 'swiper/swiper.scss'
   import Swiper from 'swiper'
+  import 'swiper/swiper.scss'
   import course from '../../api/edu/course'
+  import editor from '../../api/edu/editor'
 
   export default {
     name: 'Dashboard',
@@ -86,37 +110,63 @@
     },
     data() {
       return {
-        topData: [{
-          course_id: '202301',
-          course_name: '精选JAVA课程',
-          course_times: 10,
-          course_des: '一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库 指南 了解设计指南,帮助产品设计人员搭建逻辑清晰、结构合理且高效易用的产品。 查看详情 组件 使用组件 Demo 快速体'
-        }, {
-          course_id: '202302',
-          course_name: '深入浅出JAVA30天',
-          course_times: 13,
-          course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-        }, {
-          course_id: '202302',
-          course_name: '深入浅出JAVA30天',
-          course_times: 13,
-          course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-        }, {
-          course_id: '202302',
-          course_name: '深入浅出JAVA30天',
-          course_times: 13,
-          course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-        }, {
-          course_id: '202302',
-          course_name: '深入浅出JAVA30天',
-          course_times: 13,
-          course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-        }, {
-          course_id: '202302',
-          course_name: '深入浅出JAVA30天',
-          course_times: 13,
-          course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-        }]
+        topData: [
+          {
+            course_id: '202301',
+            course_name: '精选JAVA课程',
+            course_times: 10,
+            course_des: '一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库 指南 了解设计指南,帮助产品设计人员搭建逻辑清晰、结构合理且高效易用的产品。 查看详情 组件 使用组件 Demo 快速体'
+          }, {
+            course_id: '202302',
+            course_name: '深入浅出JAVA30天',
+            course_times: 13,
+            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
+          }, {
+            course_id: '202302',
+            course_name: '深入浅出JAVA30天',
+            course_times: 13,
+            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
+          }, {
+            course_id: '202302',
+            course_name: '深入浅出JAVA30天',
+            course_times: 13,
+            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
+          }, {
+            course_id: '202302',
+            course_name: '深入浅出JAVA30天',
+            course_times: 13,
+            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
+          }, {
+            course_id: '202302',
+            course_name: '深入浅出JAVA30天',
+            course_times: 13,
+            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
+          }],
+        shareData: [
+          {
+            'create_time': '2023-11-27 14:10',
+            'title': '虚拟列表的实现',
+            'cate': '前端',
+            'content': '在传统的列表渲染中，如果列表数据过多，一次性渲染所有数据将耗费大量的时间和内存。当我们上下滚动时，性能低的浏览器或电脑都会感觉到非常的卡，这对用户的体验时是致命的。\n' +
+              '\n' +
+              '        于是我们会想到懒加载，当资源到达可视窗口内时，继续向服务器发送请求获取接下来的资源，不过当获取的资源越来越多时，此时浏览器不断重绘与重排，这样的开销也是要考虑的当数量多到一定程度时，页面也会出现卡顿。 \n' +
+              '\n' +
+              '         此时我们会想到虚拟列表，虚拟列表只渲染当前可见的部分数据，随着滚动条的滚动，只渲染当前可见的列表项，从而大大减少了渲染时间。同时支持无限滚动，用户只需要不停地滚动页面，就可以看到所有的数据，从而提高了用户的体验。\n',
+            'author_name': '小鱼干'
+          }, {
+            'create_time': '2023-11-27 14:10',
+            'title': '虚拟列表的实现',
+            'cate': '前端',
+            'content': '在传统的列表渲染中，如果列表数据过多，一次性渲染所有数据将耗费大量的时间和内存。当我们上下滚动时，性能低的浏览器或电脑都会感觉到非常的卡，这对用户的体验时是致命的。\n' +
+              '\n' +
+              '        于是我们会想到懒加载，当资源到达可视窗口内时，继续向服务器发送请求获取接下来的资源，不过当获取的资源越来越多时，此时浏览器不断重绘与重排，这样的开销也是要考虑的当数量多到一定程度时，页面也会出现卡顿。 \n' +
+              '\n' +
+              '         此时我们会想到虚拟列表，虚拟列表只渲染当前可见的部分数据，随着滚动条的滚动，只渲染当前可见的列表项，从而大大减少了渲染时间。同时支持无限滚动，用户只需要不停地滚动页面，就可以看到所有的数据，从而提高了用户的体验。\n',
+            'author_name': '小鱼干'
+          }
+        ],
+        articleNum:0,
+        currentPage:1,
       }
     },
     mounted() {
@@ -126,12 +176,17 @@
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
-        }
+        },
         // 其他配置项
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }
       })
     },
     created() {
       this.getClassInfo()
+      this.getArticles(this.currentPage)
     },
     methods: {
       //获取全部的课程
@@ -144,12 +199,30 @@
         })
       },
       //判断是否已选
-      isHaveCourse(courseId){
-        if (this.$store.getters.haveCourseIds.includes(courseId)){
-          return true;
-        }else {
-          return false;
+      isHaveCourse(courseId) {
+        if (this.$store.getters.haveCourseIds.includes(courseId)) {
+          return true
+        } else {
+          return false
         }
+      },
+      //获取笔记列表
+      getArticles(val) {
+        editor.showArticles(val).then(res => {
+          this.shareData = res.data.article_data
+          this.articleNum = res.data.all_num
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      //点击一个笔记
+      handleCardClick(){
+
+      },
+      //修改笔记页码
+      currentPageChange(){
+        this.getArticles(this.currentPage)
       }
     }
   }
@@ -166,9 +239,15 @@
       line-height: 46px;
     }
 
-    /* 可以添加一些样式，比如设置轮播项的宽度 */
-    .swiper-slide {
-      width: calc(25% - 10px); /* 一次性展示 4 个，减去间距 */
+    .swiper-container {
+      /*height: ;*/
+      .swiper-slide {
+        width: calc(25% - 10px); /* 一次性展示 4 个，减去间距 */
+      }
     }
+
+    /* 可以添加一些样式，比如设置轮播项的宽度 */
+
+
   }
 </style>
