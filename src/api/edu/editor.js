@@ -1,13 +1,14 @@
 import request from '@/utils/request'
 
 export default {
-  submitEditor(title,article) {
+  submitEditor(title,article,userId) {
     return request({
       url: '/backend/publishArticle',
       method: 'post',
       data: {
         title,
-        article
+        article,
+        userId
       }
     })
   }

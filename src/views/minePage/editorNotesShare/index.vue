@@ -27,7 +27,7 @@
       submitValue() {
         console.log(this.title)
         console.log(this.value)
-        editorMethods.submitEditor(this.title,this.value).then(res => {
+        editorMethods.submitEditor(this.title,this.value,this.$store.getters.id).then(res => {
           console.log(res)
         })
       }
