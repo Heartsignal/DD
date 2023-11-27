@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export default {
   submitEditor(title,article,userId) {
     return request({
-      url: '/backend/publishArticle',
+      url: '/backend/publish_article',
       method: 'post',
       data: {
         title,
