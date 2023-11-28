@@ -23,7 +23,7 @@ export default {
   },
   uploadPic(file){
     return request({
-      url:'/backend/upload_pic',
+      url:'/backend/upload_photo',
       method:'post',
       data:{
         pic:file
