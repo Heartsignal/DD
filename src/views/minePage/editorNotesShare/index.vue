@@ -9,7 +9,7 @@
       </el-input>
     </div>
     <div id="main">
-      <mavon-editor v-model="value" @imgAdd="imgAdd" @imgDel="imgDel"/>
+      <mavon-editor ref=md v-model="value" @imgAdd="imgAdd" @imgDel="imgDel"/>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@
         editorMethods.uploadPic(formdata).then(res=>{
           console.log(res)
           // console.log(res.data.url)
-          // $vm.$img2Url(pos, res.data.url);
+          this.$refs.md.$img2Url(pos, res.data.url);
         })
       },
       imgDel(pos,imgFile){
