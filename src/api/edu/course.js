@@ -4,7 +4,7 @@ export default {
   //获取所有的课程信息
   getALlCourseInfo(){
     return request({
-      url: '/backend/getALlCourseInfo'
+      url: '/backend/get_all_courses_info'
     })
   },
 
