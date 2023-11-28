@@ -84,6 +84,7 @@
         layout="prev, pager, next"
         :total="articleNum"
         :current-page.sync="currentPage"
+        :page-size.sync="pageSize"
         @current-change="currentPageChange"
       >
       </el-pagination>
@@ -167,6 +168,7 @@
         ],
         articleNum:0,
         currentPage:1,
+        pageSize:5
       }
     },
     mounted() {
