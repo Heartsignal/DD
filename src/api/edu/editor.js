@@ -20,6 +20,15 @@ export default {
         page:page
       }
     })
+  },
+  uploadPic(file){
+    return request({
+      url:'/backend/upload_pic',
+      method:'post',
+      data:{
+        pic:file
+      }
+    })
   }
 
 }

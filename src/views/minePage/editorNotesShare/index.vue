@@ -9,7 +9,7 @@
       </el-input>
     </div>
     <div id="main">
-      <mavon-editor v-model="value"/>
+      <mavon-editor v-model="value" @imgAdd="imgAdd" @imgDel="imgDel"/>
     </div>
   </div>
 </template>
@@ -40,6 +40,20 @@
         editorMethods.submitEditor(this.title, this.value, this.$store.getters.id).then(res => {
           console.log(res)
         })
+      },
+      imgAdd(pos,imgFile){
+        console.log(imgFile)
+        var formdata = new FormData()
+        formdata.append('image', imgFile)
+        console.log(formdata)
+        editorMethods.uploadPic(formdata).then(res=>{
+          console.log(res)
+          // console.log(res.data.url)
+          // $vm.$img2Url(pos, res.data.url);
+        })
+      },
+      imgDel(pos,imgFile){
+
       }
     }
   }
