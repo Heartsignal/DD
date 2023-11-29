@@ -41,14 +41,19 @@
           console.log(res)
         })
       },
+
       imgAdd(pos,imgFile){
+        //imgFile是文件
         console.log(imgFile)
-        var formdata = new FormData()
-        formdata.append('image', imgFile)
-        console.log(formdata)
-        editorMethods.uploadPic(formdata).then(res=>{
+        // console.log(imgFile.name)
+        // //将文件放到formData中
+        // var formdata = new FormData()
+        // formdata.append('image', imgFile,imgFile.name);
+        // console.log(formdata.get('image'))
+        // this.$refs.md.$img2Url(pos, imgFile.miniurl);
+        //上传
+        editorMethods.uploadPic(imgFile.miniurl).then(res=>{
           console.log(res)
-          // console.log(res.data.url)
           this.$refs.md.$img2Url(pos, res.data.url);
         })
       },
