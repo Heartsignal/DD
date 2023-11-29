@@ -26,10 +26,7 @@ export default {
     return request({
       url:'/backend/upload_photo',
       method:'post',
-      data:{
-        pic:file,
-        flag:'file'
-      },
+      data:file,
     })
   },
   getOneArticleById(id){
