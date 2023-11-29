@@ -15,6 +15,11 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     }
+    if (config.data.flag=='file'){
+      config.headers['Content-Type'] = 'multipart/form-data'
+    }
+    console.log(config)
+
     return config
   },
   error => {
