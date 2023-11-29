@@ -32,13 +32,18 @@ export const constantRouterMap = [
     redirect: '/login',   //这里修改首页的重定向页面
     name: 'Dashboard',
     hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
+    children: [
+      {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard/index')
+      },
+      {
+        path: '/articleShareShow',
+        name: '文章',
+        component: () => import('@/views/dashboard/articleShareShow/'),
+      }
+    ]
   },
-
-
 
   {
     path: '/teacher',

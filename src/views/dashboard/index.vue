@@ -40,11 +40,11 @@
         </div>
         <!-- 其他 slides -->
       </div>
-<!--      &lt;!&ndash; Add Pagination &ndash;&gt;-->
-<!--      <div class="swiper-pagination"></div>-->
-<!--      &lt;!&ndash; Add Navigation &ndash;&gt;-->
-<!--      <div class="swiper-button-next"></div>-->
-<!--      <div class="swiper-button-prev"></div>-->
+      <!--      &lt;!&ndash; Add Pagination &ndash;&gt;-->
+      <!--      <div class="swiper-pagination"></div>-->
+      <!--      &lt;!&ndash; Add Navigation &ndash;&gt;-->
+      <!--      <div class="swiper-button-next"></div>-->
+      <!--      <div class="swiper-button-prev"></div>-->
 
     </div>
 
@@ -54,12 +54,12 @@
       <el-card
         v-for="(item,index) in shareData"
         :key="index"
-        style="width: 100%; height: 60px; margin-bottom: 10px;"
-        @click="handleCardClick(item)"
+        style="width: 100%; height: 60px; margin-bottom: 10px; cursor: pointer;"
+        @click.native="handleCardClick(item)"
       >
         <!-- 上半部分，占 40% -->
         <el-row style="height: 40%; margin-top: -10px;margin-bottom: 5px">
-          <el-col :sapn="20"
+          <el-col :span="20"
                   style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500;color: #222226;">
             <!-- 标题 -->
             {{ item.title }}
@@ -166,9 +166,9 @@
             'author_name': '小鱼干'
           }
         ],
-        articleNum:0,
-        currentPage:1,
-        pageSize:5
+        articleNum: 0,
+        currentPage: 1,
+        pageSize: 5
       }
     },
     mounted() {
@@ -219,11 +219,13 @@
         })
       },
       //点击一个笔记
-      handleCardClick(){
-
+      handleCardClick(val) {
+        console.log("点击了")
+        console.log(val)
+        this.$router.push({ path: this.redirect || '/articleShareShow', params: { id: val.id } })
       },
       //修改笔记页码
-      currentPageChange(){
+      currentPageChange() {
         this.getArticles(this.currentPage)
       }
     }
