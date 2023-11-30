@@ -16,6 +16,7 @@
 
   export default {
     name: 'index',
+    props: ['id'],
     data() {
       return {
         editorValue: '### hello'
@@ -27,6 +28,7 @@
     methods: {
       getOneArticleById() {
         editorMethods.getOneArticleById(this.$route.params.id).then(res => {
+          console.log(this.$route.params.id)
           console.log(res)
           this.editorValue = res.data.content
         })
