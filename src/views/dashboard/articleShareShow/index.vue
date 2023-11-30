@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="title-container">
-      <div class="main-title">你的标题</div>
-      <div class="subtitle">2023-11-08</div>
+      <div class="main-title">{{this.editor_title}}</div>
+      <div class="subtitle">{{this.author_name}} {{this.create_time}}</div>
+<!--      <div class="subtitle"></div>-->
     </div>
     <div id="main">
-      <mavon-editor v-model="editorValue" :toolbarsFlag="false" :subfield="false">
+      <mavon-editor v-model="editorValue" :toolbarsFlag="false" :subfield="false" defaultOpen="preview" >
       </mavon-editor>
     </div>
   </div>
@@ -16,10 +17,10 @@
 
   export default {
     name: 'index',
-    props: ['id'],
+    props: ['id','editor_title','create_time','author_name'],
     data() {
       return {
-        editorValue: '### hello'
+        editorValue: '### hello',
       }
     },
     created() {

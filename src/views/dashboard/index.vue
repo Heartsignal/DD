@@ -220,7 +220,16 @@
       },
       //点击一个笔记
       handleCardClick(val) {
-        this.$router.push({ name: 'articleShareShow', params: { id: val.id } });
+        this.$router.push(
+          {
+            name: 'articleShareShow',
+            params: {
+              id: val.id,
+              editor_title:val.title,
+              create_time: val.create_time,
+              author_name: val.author_name
+            }
+          })
       },
       //修改笔记页码
       currentPageChange() {
