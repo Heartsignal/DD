@@ -38,7 +38,7 @@ export const constantRouterMap = [
         component: () => import('@/views/dashboard/index')
       },
       {
-        path: '/articleShareShow/',
+        path: '/articleShareShow',
         name: 'articleShareShow',
         props: true,
         component: () => import('@/views/dashboard/articleShareShow/'),

@@ -220,9 +220,6 @@
       },
       //点击一个笔记
       handleCardClick(val) {
-        console.log('点击了')
-        console.log(val)
-        console.log(val.id)
         this.$router.push({ name: 'articleShareShow', params: { id: val.id } });
       },
       //修改笔记页码
