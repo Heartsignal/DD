@@ -27,8 +27,7 @@
     },
     methods: {
       getOneArticleById() {
-        editorMethods.getOneArticleById(this.$route.params.id).then(res => {
-          console.log(this.$route.params.id)
+        editorMethods.getOneArticleById(this.id).then(res => {
           console.log(res)
           this.editorValue = res.data.content
         })
