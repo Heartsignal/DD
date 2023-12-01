@@ -41,7 +41,7 @@ export const constantRouterMap = [
         path: '/articleShareShow',
         name: 'articleShareShow',
         props: true,
-        component: () => import('@/views/dashboard/articleShareShow/'),
+        component: () => import('@/views/dashboard/articleShareShow/')
       }
     ]
   },
@@ -263,10 +263,10 @@ export const constantRouterMap = [
     meta: { title: '我的', icon: 'nested' },
     children: [
       {
-        path: 'editorNotesShare',
-        name: '发布笔记',
-        component: () => import('@/views/minePage/editorNotesShare'),
-        meta: { title: '发布笔记', icon: 'table' }
+        path: 'articleManage',
+        name: 'articleManage',
+        component: () => import('@/views/minePage/articleManage'),
+        meta: { title: '笔记管理', icon: 'table' }
       },
       {
         path: 'mineInfo',
@@ -275,6 +275,18 @@ export const constantRouterMap = [
         meta: { title: '我的信息', icon: 'table' }
       }
     ]
+  },
+
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/editorNotesShare',
+    children: [{
+      path: 'editorNotesShare',
+      name: '发布笔记',
+      component: () => import('@/views/editorNotesShare'),
+      meta: { title: '发布笔记', icon: 'table' }
+    }]
   },
 
   {

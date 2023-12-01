@@ -73,10 +73,6 @@
           {{item.content}}
         </div>
 
-        <div style="position: absolute; top: 5px; right: 5px; font-size: 12px; color: #999;">
-          {{ item.create_time }}
-        </div>
-
       </el-card>
       <el-pagination
         background
