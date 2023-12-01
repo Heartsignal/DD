@@ -4,9 +4,13 @@
       <div class="main-title">{{this.editor_title}}</div>
       <div class="subtitle">{{this.author_name}} {{this.create_time}}</div>
 <!--      <div class="subtitle"></div>-->
+      <div v-if="edit" class="edit-button">
+        <el-button  style="background-color: rgb(48, 65, 86); color: rgb(191, 203, 217);"
+                    @click="editSubmit">保存并提交</el-button>
+      </div>
     </div>
     <div id="main">
-      <mavon-editor v-model="editorValue" :toolbarsFlag="false" :subfield="false" defaultOpen="preview" >
+      <mavon-editor v-model="editorValue" :toolbarsFlag="edit" :subfield="edit" defaultOpen="preview" >
       </mavon-editor>
     </div>
   </div>
@@ -17,7 +21,7 @@
 
   export default {
     name: 'index',
-    props: ['id','editor_title','create_time','author_name'],
+    props: ['edit','id','editor_title','create_time','author_name'],
     data() {
       return {
         editorValue: '### hello',
@@ -53,4 +57,9 @@
     color: #666; /* 灰色字体颜色 */
   }
 
+  .edit-button {
+    position: absolute;
+    top: 10px; /* 调整按钮距离顶部的距离 */
+    right: 10px; /* 调整按钮距离右侧的距离 */
+  }
 </style>

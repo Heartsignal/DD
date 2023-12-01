@@ -220,6 +220,7 @@
           {
             name: 'articleShareShow',
             params: {
+              edit:false,
               id: val.id,
               editor_title:val.title,
               create_time: val.create_time,

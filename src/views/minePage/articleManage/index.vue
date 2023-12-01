@@ -132,6 +132,7 @@
           {
             name: 'articleShareShow',
             params: {
+              edit:true,
               id: val.id,
               editor_title: val.title,
               create_time: val.create_time,
