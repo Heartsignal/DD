@@ -108,6 +108,7 @@
       //搜索自己的笔记
       searchOwnArticleSubmit(){
         console.log("搜索")
+        console.log(this.$store.getters.id)
         editor.searchOwnArticles(this.$store.getters.id,this.searchOwnArticleValue,this.currentPage,this.selectCategory).then(res=>{
           console.log(res)
           this.shareData = res.data.article_data

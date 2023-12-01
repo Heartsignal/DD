@@ -31,12 +31,22 @@
       this.getOneArticleById()
     },
     methods: {
+      //根据文章id获取一篇文章
       getOneArticleById() {
         editorMethods.getOneArticleById(this.id).then(res => {
           console.log(res)
           this.editorValue = res.data.content
+        }).catch(err=>{
+          console.log(err)
         })
-
+      },
+      //提交保存修改
+      editSubmit(){
+        editorMethods.updateArticle(this.id,this.editorValue).then(res=>{
+          console.log(res)
+        }).catch(err=>{
+          console.log(err)
+        })
       }
     }
   }

@@ -33,13 +33,13 @@ export default {
       }
     })
   },
-  searchOwnArticles(userId,keyWord,page,cate){
+  searchOwnArticles(userId,keyword,page,cate){
     return request({
-      url:'/backend/search_article',
+      url:'/backend/show_self_articles',
       method:'post',
       data:{
         user_id:userId,
-        keyWord:keyWord,
+        keyword:keyword,
         page:page,
         cate:cate
       }
@@ -61,6 +61,16 @@ export default {
       }
     })
   },
+  updateArticle(id,content){
+    return request({
+      url:'/backend/update_article',
+      method:'post',
+      data:{
+        id:id,
+        content:content
+      }
+    })
+  }
 
 
 }
