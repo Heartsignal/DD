@@ -143,7 +143,8 @@
       },
       //修改笔记页码
       currentPageChange() {
-        this.getArticles(this.currentPage)
+        console.log(this.currentPage)
+        this.getOwnArticles(this.currentPage)
       }
     }
   }
