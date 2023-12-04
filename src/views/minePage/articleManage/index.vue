@@ -122,7 +122,6 @@
         editor.showOwnArticles(val,this.$store.getters.id).then(res => {
           this.shareData = res.data.article_data
           this.articleNum = res.data.all_num
-          console.log(res)
         }).catch(err => {
           console.log(err)
         })
