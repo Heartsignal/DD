@@ -33,7 +33,7 @@ export default {
       }
     })
   },
-  searchOwnArticles(userId,keyword,page,cate){
+  searchOwnArticles(keyword,page,cate,userId){
     return request({
       url:'/backend/search_article',
       method:'post',
