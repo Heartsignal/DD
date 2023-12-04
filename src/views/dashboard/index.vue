@@ -48,7 +48,7 @@
     <div style="margin-top: 10px">
       <el-row>
         <el-col :span="18">
-          <el-input placeholder="请输入内容" v-model="searchAllArticleSubmit" class="input-with-select">
+          <el-input placeholder="请输入内容" v-model="searchAllArticleValue" class="input-with-select">
             <template slot="prepend">文章标题</template>
           </el-input>
         </el-col>
@@ -63,7 +63,7 @@
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button style="width: 100%;background-color: rgb(48, 65, 86); color: rgb(191, 203, 217);" icon="el-icon-search" @click="searchOwnArticleSubmit"></el-button>
+          <el-button style="width: 100%;background-color: rgb(48, 65, 86); color: rgb(191, 203, 217);" icon="el-icon-search" @click="searchAllArticleSubmit"></el-button>
         </el-col>
       </el-row>
 
@@ -131,7 +131,7 @@
           '数学', '运维', '网络空间安全', '服务器', , '学习和成长',
           '教育培训', '用户体验设计', '音视频', '行业数字化', '其他'
         ],
-        searchOwnArticleValue:"",
+        searchAllArticleValue:"",
         selectCategory:"",
         topData: [
           {
@@ -261,7 +261,7 @@
       //搜索笔记
       searchAllArticleSubmit(){
         console.log("搜索")
-        editor.searchOwnArticles(this.searchOwnArticleValue,this.currentPage,this.selectCategory).then(res=>{
+        editor.searchOwnArticles(this.searchAllArticleValue,this.currentPage,this.selectCategory).then(res=>{
           this.shareData = res.data.article_data
           this.articleNum = res.data.all_num
         }).catch(onerror=>{
