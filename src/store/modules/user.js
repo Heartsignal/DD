@@ -8,9 +8,9 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    id: -1,
-    haveCourseIds: [],
-    role: ''
+    id: JSON.parse(sessionStorage.getItem("id")) || {},
+    haveCourseIds: JSON.parse(sessionStorage.getItem("haveCourseIds")) || {},
+    role: JSON.parse(sessionStorage.getItem("role")) || {}
   },
 
   mutations: {
@@ -28,12 +28,15 @@ const user = {
     },
     SET_ID: (state, id) => {
       state.id = id
+      sessionStorage.setItem("id", JSON.stringify(id))
     },
     SET_HAVECOURSEIDS: (state, haveCourseIds) => {
       state.haveCourseIds = haveCourseIds
+      sessionStorage.setItem("haveCourseIds", JSON.stringify(haveCourseIds))
     },
     SET_ROLE: (state, role) => {
       state.role = role
+      sessionStorage.setItem("role", JSON.stringify(role))
     }
   },
 
