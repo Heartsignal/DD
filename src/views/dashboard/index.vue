@@ -260,7 +260,6 @@
       },
       //搜索笔记
       searchAllArticleSubmit(){
-        console.log("搜索")
         editor.searchOwnArticles(this.searchAllArticleValue,this.currentPage,this.selectCategory).then(res=>{
           this.shareData = res.data.article_data
           this.articleNum = res.data.all_num
