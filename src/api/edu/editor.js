@@ -25,7 +25,7 @@ export default {
   },
   showOwnArticles(page,id){
     return request({
-      url:'/backend/show_Own_articles',
+      url:'/backend/show_self_articles',
       method: 'post',
       data: {
         page:page,
@@ -35,7 +35,7 @@ export default {
   },
   searchOwnArticles(userId,keyword,page,cate){
     return request({
-      url:'/backend/show_self_articles',
+      url:'/backend/search_article',
       method:'post',
       data:{
         user_id:userId,
