@@ -8,9 +8,9 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    id: JSON.parse(sessionStorage.getItem("id")) || {},
-    haveCourseIds: JSON.parse(sessionStorage.getItem("haveCourseIds")) || {},
-    role: JSON.parse(sessionStorage.getItem("role")) || {}
+    id: JSON.parse(sessionStorage.getItem("id")) || '',
+    haveCourseIds: JSON.parse(sessionStorage.getItem("haveCourseIds")) || [],
+    role: JSON.parse(sessionStorage.getItem("role")) || ''
   },
 
   mutations: {
