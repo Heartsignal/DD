@@ -40,11 +40,6 @@
         </div>
         <!-- 其他 slides -->
       </div>
-      <!--      &lt;!&ndash; Add Pagination &ndash;&gt;-->
-      <!--      <div class="swiper-pagination"></div>-->
-      <!--      &lt;!&ndash; Add Navigation &ndash;&gt;-->
-      <!--      <div class="swiper-button-next"></div>-->
-      <!--      <div class="swiper-button-prev"></div>-->
 
     </div>
 
@@ -53,7 +48,7 @@
     <div style="margin-top: 10px">
       <el-row>
         <el-col :span="18">
-          <el-input placeholder="请输入内容" v-model="searchOwnArticleValue" class="input-with-select">
+          <el-input placeholder="请输入内容" v-model="searchAllArticleSubmit" class="input-with-select">
             <template slot="prepend">文章标题</template>
           </el-input>
         </el-col>
