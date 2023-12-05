@@ -5,10 +5,11 @@
 
     <!--    轮播效果-->
     <div class="swiper-container">
+      <!-- swiper-slide content -->
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(item,n) in this.topData" :key="n"
              style="padding-bottom: 10px; padding-right: 10px;">
-          <el-card>
+          <el-card @click.native="handleVideoCardClick(item)">
             <!-- 卡片上部分 -->
             <div>
               <!-- 这里可以放图片或其他内容 -->
@@ -53,7 +54,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-select v-model="selectCategory" placeholder="请选择类别"style="width: 100%">
+          <el-select v-model="selectCategory" placeholder="请选择类别" style="width: 100%">
             <el-option
               v-for="(item,index) in categories"
               :key="index"
@@ -63,7 +64,8 @@
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button style="width: 100%;background-color: rgb(48, 65, 86); color: rgb(191, 203, 217);" icon="el-icon-search" @click="searchAllArticleSubmit"></el-button>
+          <el-button style="width: 100%;background-color: rgb(48, 65, 86); color: rgb(191, 203, 217);"
+                     icon="el-icon-search" @click="searchAllArticleSubmit"></el-button>
         </el-col>
       </el-row>
 
@@ -121,6 +123,19 @@
         'roles'
       ])
     },
+    beforeRouteLeave(to, from, next) {
+      // 保存当前页面的状态
+      this.$route.meta.state = this.$data
+      next()
+    },
+    beforeRouteEnter(to, from, next) {
+      // 获取上一页保存的状态
+      const state = from.meta.state
+      next(vm => {
+        // 将状态重新赋值给组件的数据
+        Object.assign(vm, state)
+      })
+    },
     data() {
       return {
         categories: ['Python', 'Java', '编程语言', '开发工具',
@@ -131,8 +146,8 @@
           '数学', '运维', '网络空间安全', '服务器', , '学习和成长',
           '教育培训', '用户体验设计', '音视频', '行业数字化', '其他'
         ],
-        searchAllArticleValue:"",
-        selectCategory:"",
+        searchAllArticleValue: '',
+        selectCategory: '',
         topData: [
           {
             course_id: '202301',
@@ -246,27 +261,38 @@
           {
             name: 'articleShareShow',
             params: {
-              edit:false,
+              edit: false,
               id: val.id,
-              editor_title:val.title,
+              editor_title: val.title,
               create_time: val.create_time,
               author_name: val.author_name
             }
           })
+      },
+      //点击一个视频
+      handleVideoCardClick(val){
+        this.$router.push(
+          {
+            name:'videoShareShow',
+            params:{
+              course_id:val.course_id,
+            }
+          }
+        )
       },
       //修改笔记页码
       currentPageChange() {
         this.getArticles(this.currentPage)
       },
       //搜索笔记
-      searchAllArticleSubmit(){
-        editor.searchOwnArticles(this.searchAllArticleValue,this.currentPage,this.selectCategory).then(res=>{
+      searchAllArticleSubmit() {
+        editor.searchOwnArticles(this.searchAllArticleValue, this.currentPage, this.selectCategory).then(res => {
           this.shareData = res.data.article_data
           this.articleNum = res.data.all_num
-        }).catch(onerror=>{
+        }).catch(onerror => {
           console.log(onerror)
         })
-      },
+      }
     }
   }
 </script>
@@ -290,7 +316,5 @@
     }
 
     /* 可以添加一些样式，比如设置轮播项的宽度 */
-
-
   }
 </style>

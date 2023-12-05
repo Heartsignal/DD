@@ -42,6 +42,12 @@ export const constantRouterMap = [
         name: 'articleShareShow',
         props: true,
         component: () => import('@/views/dashboard/articleShareShow/')
+      },
+      {
+        path: 'videoShareShow',
+        name: 'videoShareShow',
+        props: true,
+        component: () => import('@/views/dashboard/videoShareShow/')
       }
     ]
   },

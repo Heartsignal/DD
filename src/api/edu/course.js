@@ -2,9 +2,19 @@ import request from '@/utils/request'
 
 export default {
   //获取所有的课程信息
-  getALlCourseInfo(){
+  getALlCourseInfo() {
     return request({
       url: '/backend/get_all_courses_info'
+    })
+  },
+  //获取该课程下的目录
+  showCourseCatalog(course_id) {
+    return request({
+      url:'/backend/show_course catalog',
+      method:'post',
+      data:{
+        course_id:course_id
+      }
     })
   },
 
