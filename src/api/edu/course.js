@@ -10,7 +10,7 @@ export default {
   //获取该课程下的目录
   showCourseCatalog(course_id) {
     return request({
-      url:'/backend/show_course catalog',
+      url:'/backend/show_course_catalog',
       method:'post',
       data:{
         course_id:course_id
