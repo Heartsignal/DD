@@ -32,14 +32,13 @@ import courseMethods from '../../../api/edu/course'
       showCourseCatalog() {
         courseMethods.showCourseCatalog(this.course_id).then(res => {
           console.log(res)
-          directories = res.data
+          this.directories = res.data
         })
       },
       downloadDirectory(directory) {
         // 在这里处理下载逻辑，可以使用浏览器提供的下载功能或者发起下载请求
         console.log(`下载目录：${directory.name}, 路径：${directory.path}`)
       }
-
     }
   }
 </script>
