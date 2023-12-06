@@ -128,14 +128,25 @@
       this.$route.meta.state = this.$data
       next()
     },
+    // beforeRouteEnter(to, from, next) {
+    //   // 获取上一页保存的状态
+    //   const state = from.meta.state
+    //   next(vm => {
+    //     // 将状态重新赋值给组件的数据
+    //     Object.assign(vm, state)
+    //   })
+    // },
     beforeRouteEnter(to, from, next) {
-      // 获取上一页保存的状态
-      const state = from.meta.state
+      console.log('Before Route Enter:', from.meta.state);
       next(vm => {
+        // 获取上一页保存的状态
+        const state = from.meta.state
         // 将状态重新赋值给组件的数据
+        console.log('Assigning State:', state);
         Object.assign(vm, state)
       })
     },
+
     data() {
       return {
         categories: ['Python', 'Java', '编程语言', '开发工具',
