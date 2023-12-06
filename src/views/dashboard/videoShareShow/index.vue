@@ -4,7 +4,7 @@
     <ul>
       <li v-for="(directory, index) in directories" :key="index">
         {{directory.course_unit}}--{{ directory.catalog_name }}
-        <button @click="downloadDirectory(directory)">下载</button>
+        <button @click="downloadDirectory(directory)" v-if="this.$store.getters.haveCourseIds.includes(courseId)">下载</button>
       </li>
     </ul>
   </div>
