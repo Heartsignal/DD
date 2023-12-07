@@ -123,30 +123,6 @@
         'roles'
       ])
     },
-    beforeRouteLeave(to, from, next) {
-      // 保存当前页面的状态
-      this.$route.meta.state = this.$data
-      next()
-    },
-    // beforeRouteEnter(to, from, next) {
-    //   // 获取上一页保存的状态
-    //   const state = from.meta.state
-    //   next(vm => {
-    //     // 将状态重新赋值给组件的数据
-    //     Object.assign(vm, state)
-    //   })
-    // },
-    beforeRouteEnter(to, from, next) {
-      console.log('Before Route Enter:', from.meta.state);
-      next(vm => {
-        // 获取上一页保存的状态
-        const state = from.meta.state
-        // 将状态重新赋值给组件的数据
-        console.log('Assigning State:', state);
-        Object.assign(vm, state)
-      })
-    },
-
     data() {
       return {
         categories: ['Python', 'Java', '编程语言', '开发工具',
@@ -202,16 +178,6 @@
               '\n' +
               '         此时我们会想到虚拟列表，虚拟列表只渲染当前可见的部分数据，随着滚动条的滚动，只渲染当前可见的列表项，从而大大减少了渲染时间。同时支持无限滚动，用户只需要不停地滚动页面，就可以看到所有的数据，从而提高了用户的体验。\n',
             'author_name': '小鱼干'
-          }, {
-            'create_time': '2023-11-27 14:10',
-            'title': '虚拟列表的实现',
-            'cate': '前端',
-            'content': '在传统的列表渲染中，如果列表数据过多，一次性渲染所有数据将耗费大量的时间和内存。当我们上下滚动时，性能低的浏览器或电脑都会感觉到非常的卡，这对用户的体验时是致命的。\n' +
-              '\n' +
-              '        于是我们会想到懒加载，当资源到达可视窗口内时，继续向服务器发送请求获取接下来的资源，不过当获取的资源越来越多时，此时浏览器不断重绘与重排，这样的开销也是要考虑的当数量多到一定程度时，页面也会出现卡顿。 \n' +
-              '\n' +
-              '         此时我们会想到虚拟列表，虚拟列表只渲染当前可见的部分数据，随着滚动条的滚动，只渲染当前可见的列表项，从而大大减少了渲染时间。同时支持无限滚动，用户只需要不停地滚动页面，就可以看到所有的数据，从而提高了用户的体验。\n',
-            'author_name': '小鱼干'
           }
         ],
         articleNum: 0,
@@ -235,8 +201,16 @@
       })
     },
     created() {
-      this.getClassInfo()
-      this.getArticles(this.currentPage)
+      // 只有当没有保存的状态时，执行查询数据的操作
+      if (!this.$route.meta.state) {
+        this.getClassInfo()
+        this.getArticles(this.currentPage)
+      }else {
+        console.log("----")
+        console.log(this.$route.meta.state)
+        console.log("----")
+        // this.$data = this.$route.meta.state
+      }
     },
     methods: {
       //获取全部的课程
