@@ -273,7 +273,7 @@ export const constantRouterMap = [
         path: 'articleManage',
         name: 'articleManage',
         component: () => import('@/views/minePage/articleManage'),
-        meta: { title: '笔记管理', icon: 'table' }
+        meta: { title: '笔记管理', icon: 'table',keepAlive:true }
       },
       {
         path: 'mineInfo',
