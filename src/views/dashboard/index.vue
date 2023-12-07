@@ -161,11 +161,6 @@
             course_name: '深入浅出JAVA30天',
             course_times: 13,
             course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
-          }, {
-            course_id: '202302',
-            course_name: '深入浅出JAVA30天',
-            course_times: 13,
-            course_des: 'java培训全部课程,0基础入门+实战项目培训+积累项目经验,即学即用.java培训全部课程 9大热门学科,20所自营分校,完善课程体系,30余万IT学员'
           }],
         shareData: [
           {
