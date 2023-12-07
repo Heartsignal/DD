@@ -17,7 +17,16 @@ export default {
       }
     })
   },
+  //获取课程视频
+  getVideoUrl(){
+    return request({
+      url:'',
+      method:'post',
+      data:{
 
+      }
+    })
+  },
   //1 添加课程信息
   addCourseInfo(courseInfo) {
     return request({
