@@ -26,6 +26,9 @@ import 'mavon-editor/dist/css/index.css'
 // use
 Vue.use(mavonEditor)
 
+import VideoPlayer from 'vue-video-player'
+Vue.use(VideoPlayer)
+
 new Vue({
   el: '#app',
   router,
