@@ -22,6 +22,10 @@
   export default {
     name: 'index',
     props: ['edit','id','editor_title','create_time','author_name'],
+    beforeRouteLeave(to,form,next){
+      to.meta.keepAlive = true;
+      next(0)
+    },
     data() {
       return {
         editorValue: '### hello',

@@ -35,7 +35,8 @@ export const constantRouterMap = [
     children: [
       {
         path: '/dashboard',
-        component: () => import('@/views/dashboard/index')
+        component: () => import('@/views/dashboard/index'),
+        meta:{keepAlive:true}
       },
       {
         path: '/articleShareShow',
@@ -310,7 +311,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
